@@ -72,6 +72,15 @@ First, we need to make a vector or string of values which we will store as an ob
 x <- c(4, 6, 8, 5, 6, 7, 7, 7)
 ```
 
+```{r}
+y <- c( 1, 2, 2, 4, 4, 8, 12, 12)
+```
+
+```{r}
+mean(y)
+```
+
+
 Now we can calculate the mean of object x.  
 ```{r}
 mean(x)
