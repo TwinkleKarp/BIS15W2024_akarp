@@ -126,6 +126,13 @@ In order to make the html file, you need to "Knit" the file. Knitting just means
 
 ## Practice
 1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
+```{r}
+(8*6)/4
+```
+```{r}
+(4+5)/3
+```
+
 2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
 3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
 
