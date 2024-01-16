@@ -31,6 +31,14 @@ To print the object to the screen, just type x.
 ```{r}
 x
 ```
+```{r}
+y <- 30
+```
+
+```{r}
+z=30 #do not use
+```
+
 
 Once an object has been created, you can do things with them.  
 ```{r}
@@ -44,6 +52,11 @@ my_experiment <- sum(treatment, control)
 my_experiment
 ```
 
+
+```{r}
+treatment+control
+```
+
 ## Nomenclature
 We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.  
 ```{r eval=FALSE, include=TRUE}
@@ -55,17 +68,19 @@ We get an error here because `else` is a function in R. You also don't want to g
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.  
 ```{r}
-
+venom_GT <- 270
+chiron <- 261
+veyron <- 268
 ```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
 ```{r}
-
+(270+261+268)/3
 ```
 
 3. Use the function `mean()` to calculate the mean top speed for the cars.
 ```{r}
-
+mean(venom_GT, chiron, veyron)
 ```
 
 ```{r}
@@ -125,10 +140,12 @@ new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 
 2. As we did in homework 1, calculate the mean of `new_vector`.
 ```{r}
-
+mean (new_vector)
 ```
 
 3. How do you interpret this result? What does this mean about NAs?  
+
+I would interpret this as saying that there is data missing. This means that NAs affect the rest of the data and prevents calculations from occuring.
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
