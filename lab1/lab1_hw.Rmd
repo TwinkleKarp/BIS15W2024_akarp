@@ -17,7 +17,7 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 
 **2. What is the difference between R and RStudio? What is GitHub and why is it useful to programmers?**  
 
-
+R is required to be downloaded before RStudio can work. Also, R is a scripting language used for coding, while RStudio is a GUI. GitHub is a platform used by programmers to make repositories for their code that can then be shared as well as to store and manage profiles.
 
 **3. Navigate to my [BIS15L](https://github.com/jmledford3115/BIS15LW2021_jledford) repository on GitHub. Notice that near the bottom there is a nice, clean description of the repository. You want this on your repository! It is built by making edits to the `README.md` file using the RMarkdown conventions. Edit your repository's `README.md` file so that you have a clean informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
 
