@@ -1,0 +1,87 @@
+---
+title: "Warmup"
+output: html_document
+date: "2024-01-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### 1. Plant height vector
+```{r}
+plant_height <- c(30.7, 37.6, 28.4, NA, 33.2)
+```
+
+
+###2. Plant Weight Vector
+```{r}
+plant_weight <- c(4, 5.2, 3.7, NA, 4.6)
+```
+
+### 3. Labels for data matrix
+```{r}
+samples <- c("plant_1", "plant_2", "plant_3", "plant_4", "plant_5")
+measured <- c("height", "weight")
+```
+
+### 4. Combine data for heiht and weight
+```{r}
+plant_experiment <- c(plant_height, plant_weight)
+```
+
+### 5. Build the Data Matrix
+```{r}
+plant_heights <- c(30.7, 37.6, 28.4, NA, 33.2)
+plant_heights
+```
+```{r}
+plant_masses <- c(4, 5.2, 3.7, NA, 4.6)
+plant_masses
+```
+```{r}
+plant_measurements <- c(plant_heights, plant_masses)
+plant_measurements
+```
+
+```{r}
+plant_experiment_matrix <- matrix(plant_experiment, nrow = 5, byrow=F)
+plant_experiment_matrix
+```
+### 6. Name the columns and rows
+```{r}
+colnames(plant_experiment_matrix) <- measured
+rownames(plant_experiment_matrix) <- samples
+```
+
+### 7. Calculated the means of each column
+```{r}
+plant_means <- colMeans(plant_experiment_matrix, na.rm = T)
+plant_means
+```
+
+### 8. Add this as a new row
+```{r}
+plant_experiment_matrix_final <- rbind(plant_experiment_matrix, plant_means)
+plant_experiment_matrix_final
+```

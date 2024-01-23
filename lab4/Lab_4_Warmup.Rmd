@@ -1,0 +1,64 @@
+---
+title: "lab_4_warmup"
+output: html_document
+date: "2024-01-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Warm-up
+1. In a new R Markdown document, load the tidyverse and a package called `palmerpenguins`.
+2. What are the dimensions of the dataset `penguins`?
+3. What are the names of the variables in the `penguins` dataset?
+4. How many individuals were sampled on each island in the `penguins` dataset?
+5. What is the mean body mass for all individuals in the `penguins` dataset?
+
+
+## 1. Load the libraries
+```{r}
+library("tidyverse")
+library(palmerpenguins)
+```
+
+dont need to use read.csv because we already imported the data
+
+```{r}
+penguins
+```
+
+
+## 2. What are the dimensions of 'penguins'?
+```{r}
+dim(penguins)
+```
+
+## 3. What are the names of the variables (columns)?
+```{r}
+names(penguins)
+```
+ 
+ or can also do
+```{r}
+glimpse(penguins)
+```
+## 4. How many individuals are sampled on each island?
+```{r}
+penguins <- penguins
+```
+ (this stores 'penguins' as an object)
+ 
+```{r}
+table(penguins$island)
+```
+ 
+ or can also do
+```{r}
+summary(penguins$island)
+```
+ 
+```{r}
+mean(penguins$body_mass_g, na.rm=T)
+```
+(include 'na.rm=T' because there are 'NA's' in the data)
