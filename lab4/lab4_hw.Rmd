@@ -88,7 +88,7 @@ table(homerange$trophic.guild)
 
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 ```{r}
-carnivores <- filter(homerange, trophic.guild=="carnivore")
+carnivores <- filter(homerange, trophic.guild=="carnivore") #dont make another data frame- already is one!
 ```
 
 
