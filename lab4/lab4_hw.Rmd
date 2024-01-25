@@ -48,7 +48,7 @@ str(homerange)
 ```
 For the statistical summary(?)
 ```{r}
-summarise_all(homerange)
+summary(homerange)
 ```
 
 
@@ -73,18 +73,24 @@ data.frame(taxa)
 
 **5. The variable `taxon` identifies the common name groups of the species represented in `homerange`. Make a table that shows the counts for each of these `taxon`.**  
 ```{r}
-
+count(homerange, taxon) 
 ```
 
 **6. The species in `homerange` are also classified into trophic guilds. How many species are represented in each trophic guild.**  
 ```{r}
-
+count(homerange, trophic.guild)
 ```
+or can do:
+```{r}
+table(homerange$trophic.guild)
+```
+
 
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 ```{r}
-
+carnivores <- filter(homerange, trophic.guild=="carnivore")
 ```
+
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
 ```{r}
@@ -97,7 +103,12 @@ data.frame(taxa)
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
 ```{r}
+names(homerange)
+```
 
+
+```{r}
+owls <- select(homerange, "mean.mass.g", "log10.mass", "family", "genus", species == owl) #??
 ```
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  

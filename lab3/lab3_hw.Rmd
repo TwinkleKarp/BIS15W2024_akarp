@@ -74,18 +74,18 @@ small_mammals
 ```
 
 ```{r}
-large_mammals <- data.frame(sleep, bodywt>=200)
+large_mammals <- data.frame(sleep$bodywt>=200)
 large_mammals
 ```
 
 
 8. What is the mean weight for both the small and large mammals?
 ```{r}
-
+mean(small_mammals)
 ```
 
 ```{r}
-
+mean(large_mammals)
 ```
 
 9. Using a similar approach as above, do large or small animals sleep longer on average?  
