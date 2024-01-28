@@ -123,8 +123,17 @@ filter(owls, order == "strigiformes")
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
 ```{r}
-
+names(homerange)
 ```
+
+```{r}
+select(homerange, "mean.hra.m2", "class", "species", "common.name") %>%
+  arrange(desc(mean.hra.m2)) %>%
+  filter(class=="aves")
+```
+The bird species, cheriway or caracara, has the largest homerange according to the data. This bird species is part of the falcon family, and are characterized for their wide hunting range. They are predators as well as scavengers, feeding on a wide variety of organisms.
+
+
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
