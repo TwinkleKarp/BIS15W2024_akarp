@@ -132,21 +132,59 @@ filter(bad_guys, hair_color == "Green")
 
 10. Let's explore who the really small superheros are. In the `superhero_info` data, which have a weight less than 50? Be sure to sort your results by weight lowest to highest.  
 
+```{r}
+names(superhero_info)
+```
+
+```{r}
+filter(superhero_info, weight<50) %>% 
+  arrange(weight)
+```
 
 
-11. Let's make a new variable that is the ratio of height to weight. Call this variable `height_weight_ratio`.    
+11. Let's make a new variable that is the ratio of height to weight. Call this variable `height_weight_ratio`. 
 
-12. Who has the highest height to weight ratio?  
+```{r}
+height_weight_ratio <- mutate(superhero_info, height/weight)
+height_weight_ratio
+```
+
+
+12. Who has the highest height to weight ratio? 
+
+```{r}
+height_weight_ratio %>% 
+  arrange(desc(`height/weight`)) #Groot does
+```
+
 
 ## `superhero_powers`
 Have a quick look at the `superhero_powers` data frame.  
 
 13. How many superheros have a combination of agility, stealth, super_strength, stamina?
 
-## Your Favorite
-14. Pick your favorite superhero and let's see their powers!  
+```{r}
+superhero_powers %>% 
+  filter(agility & stealth & super_strength & stamina)
+```
 
-15. Can you find your hero in the superhero_info data? Show their info!  
+
+## Your Favorite
+14. Pick your favorite superhero and let's see their powers!
+
+```{r}
+superhero_powers %>% 
+  filter(hero_names=="Spider-Man")
+```
+
+
+15. Can you find your hero in the superhero_info data? Show their info! 
+
+```{r}
+superhero_info %>% 
+  filter(name=="Spider-Man")
+```
+
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  
