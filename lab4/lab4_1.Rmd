@@ -37,7 +37,7 @@ glimpse(fish)
 ```
 
 ```{r}
-summarise(fish)
+summary(fish)
 ```
 
 
