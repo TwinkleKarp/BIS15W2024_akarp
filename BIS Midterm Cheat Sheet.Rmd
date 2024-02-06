@@ -165,6 +165,11 @@ Here we open a .csv file. Since we are using the tidyverse, we open the file usi
 #read.csv("file_name.csv") # '../' tells it to go farther back into my repository folder, if the data file is not located in the Lab folder 
 ```
 
+```{r}
+#readr::read_csv()
+```
+
+
 Can change a class from a character to a factor. A factor is when you have repeated sets of a type; categories of characters
 ```{r}
 #data_frame$col_name <- as.factor(data_frame$col_name)
@@ -280,6 +285,7 @@ Other super helpful way to clean up column names is to load the 'janitor' packag
 ```{r}
 #library(janitor) 
 #clean_names(data.frame) #super handy trick for cleaning up column names
+#janitor::clean_names()
 ```
 
 When naming columns, blank spaces are often added. Here is a trick to remove these.  
