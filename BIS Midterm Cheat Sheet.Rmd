@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 We create vectors using the `c` command. The `c` stands for concatenate. to make a vector:
 ```{r}
-_ <- c()
+#_ <- c()
 ```
 
 to download the 'tidyverse' package
@@ -26,96 +26,96 @@ to download the 'tidyverse' package
 ### Types of Data
 There are five frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
 ```{r}
-my_numeric <- 42
-my_integer <- 2L #adding an L automatically denotes an integer
-my_character <- "universe"
-my_logical <- FALSE
-my_complex <- 2+4i
+#my_numeric <- 42
+#my_integer <- 2L #adding an L automatically denotes an integer
+#my_character <- "universe"
+#my_logical <- FALSE
+#my_complex <- 2+4i
 ```
 
 A numeric vector
 ```{r}
-my_vector <- c(10, 20, 30)
+#my_vector <- c(10, 20, 30)
 ```
 
 A character vector. Characters always have quotes and may be referred to as "strings".
 ```{r}
-days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+#days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 ```
 
 A convenient trick for creating a vector is to generate a sequence of numbers.
 ```{r}
-my_vector_sequence <- c(1:100)
+#my_vector_sequence <- c(1:100)
 ```
 
 
 To find out what type of data you are working with, use the `class()` function
 ```{r}
-class()
+#class()
 ```
 
 You can use the `is()` and `as()` functions to clarify or specify a type of data.
 ```{r}
-is.integer() #is something an integer?
+#is.integer() #is something an integer?
 ```
 
 ```{r}
-as.integer() #create a new object specified as an integer
+#as.integer() #create a new object specified as an integer
 ```
 
 ### Missing Data
 `is.na` or `anyNA` are useful functions when dealing with NAs in data
 ```{r}
-is.na()
-anyNA()
-?na.rm=T #na.rm=T removes the NA values in the vector
+#is.na()
+#anyNA()
+#?na.rm=T #na.rm=T removes the NA values in the vector
 ```
 
 ### Data Matrices
 Create a matrix using the `matrix()` command. We need to tell R how to organize the your vector using the `nrow` and `byrow` commands.
 ```{r}
-matrix <- matrix(vector, nrow = a_number, byrow = T)
+#matrix <- matrix(vector, nrow = a_number, byrow = T)
 ```
 
 Name the columns using `colnames()` using your column vector.
 ```{r}
-colnames(matrix) <- vector
+#colnames(matrix) <- vector
 ```
 
 Name the rows using `rownames()` using your row vector.
 ```{r}
-rownames(matrix) <- vector
+#rownames(matrix) <- vector
 ```
 
 can calculate the sum of one of the rows using 'rowSums'
 ```{r}
-rowSums()
+#rowSums()
 ```
 
 can calculate the sum of one of the columns using 'colSums'
 ```{r}
-colSums()
+#colSums()
 ```
 
 To add a new row to a data matrix or data frame, use 'rbind'
 ```{r}
-rbind(matrix_or_frame, new_row_object_name)
+#rbind(matrix_or_frame, new_row_object_name)
 ```
 
 to add a new column to a data matrix or data frame, use 'cbind'
 ```{r}
-cbind(matrix_or_frame, new_column_object_name)
+#cbind(matrix_or_frame, new_column_object_name)
 ```
 
 The same methods of selecting elements in a vector apply to data matrices. We use `[]`. Ex: select the value in the first column and second row:
 ```{r}
-matrix[2,1] #Adding a colon `:` selects the specified elements in a column.
+#matrix[2,1] #Adding a colon `:` selects the specified elements in a column.
 # can select elements in a whole row by putting nothing in the column area: [ ,row] and inversely [column, ]
 ```
 
 To take the mean of all the rows, use 'rowMeans'
 ```{r}
-rowMeans()
+#rowMeans()
 ```
 
 
@@ -126,101 +126,101 @@ includes example for make a "data.frame()' from scratch
 
 The `dim()` and `str()` commands provide the dimensions and/or structure of a data frame.
 ```{r}
-dim()
-str()
+#dim()
+#str()
 ```
 
 to change the names of data frame variables
 ```{r}
-data.frame(new_name=old_name) #or can use 'janitor' package to automatically correct all names
+#data.frame(new_name=old_name) #or can use 'janitor' package to automatically correct all names
 ```
 
 can also use 'rename()'
 ```{r}
-rename()
+#rename()
 ```
 
 
 in addition to [], can also select values in an entire column using the `$` sign. it can also be used for adding more data to the data frame
 ```{r}
-data_frame$col_name
+#data_frame$col_name
 ```
 
 ## Writing Data to File
 There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-write.csv(data_frame, "data_frame.csv", row.names = FALSE)
+#write.csv(data_frame, "data_frame.csv", row.names = FALSE)
 ```
 
 ## Lab 3.2
 
 To import any file, first make sure that you are in the correct working directory. If you are not in the correct directory, R will not "see" the file.
 ```{r}
-getwd()
+#getwd()
 ```
 
 ### Load the data
 Here we open a .csv file. Since we are using the tidyverse, we open the file using `read_csv()`.
 ```{r}
-read.csv("file_name.csv") # '../' tells it to go farther back into my repository folder, if the data file is not located in the Lab folder 
+#read.csv("file_name.csv") # '../' tells it to go farther back into my repository folder, if the data file is not located in the Lab folder 
 ```
 
 Can change a class from a character to a factor. A factor is when you have repeated sets of a type; categories of characters
 ```{r}
-data_frame$col_name <- as.factor(data_frame$col_name)
+#data_frame$col_name <- as.factor(data_frame$col_name)
 ```
 
 ### Summary functions
 We can summarize our data frame with the`summary()` function.  
 ```{r}
-summary()
+#summary()
 ```
 
 `glimpse()` is another useful summary function.
 ```{r}
-glimpse()
+#glimpse()
 ```
 
 `nrow()` gives the numbers of rows.
 ```{r}
-nrow()
+#nrow()
 ```
 
 `ncol` gives the number of columns.
 ```{r}
-ncol()
+#ncol()
 ```
 
 `names` gives the column names.
 ```{r}
-names()
+#names()
 ```
 
 `head()` prints the first n rows of the data frame.
 ```{r}
-head()
+#head()
 ```
 
 `tail()` prinst the last n rows of the data frame.
 ```{r}
-tail()
+#tail()
 ```
 
 `table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable.  
 ```{r}
-table(data_frame$col_name)
+#table(data_frame$col_name)
 ```
 
 We can also click on the data frame in the Environment tab or type View() to better see it.
 ```{r}
-View()
+#View()
 ```
 
 ### Filter command
 
 Filter is a way of pulling out observations that meet specific criteria in a variable. 
 ```{r}
-filter()
+#filter()
 ```
 
 (Lab 4.2)
@@ -234,7 +234,7 @@ Unlike `select()`, `filter()` allows us to extract data that meet specific crite
 ### Select command
 Select allows you to pull out columns of interest from a dataframe. To do this, just add the names of the columns to the `select()` command. The order in which you add them, will determine the order in which they appear in the output.
 ```{r}
-select()
+#select()
 ```
 
 There are also other ways you can reconfigure, modify, etc.:
@@ -243,7 +243,7 @@ To add a range of columns use `start_col:end_col`. This is super helpful when yo
 
 The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-select(data_frame, -"unwanted_col")
+#select(data_frame, -"unwanted_col")
 ```
 
 Options to select columns based on a specific criteria include:  
@@ -254,37 +254,37 @@ Options to select columns based on a specific criteria include:
 
 the following code is helpful when you know that a column contains a letter (such as "a") followed by a subsequent string (such as "er").  
 ```{r}
-select(data_frame, matches("a.+er")) 
+#select(data_frame, matches("a.+er")) 
 ```
 
 You can also select columns based on the class of data, such as numeric data
 ```{r}
-select_if(data_frame, is.numeric)
+#select_if(data_frame, is.numeric)
 ```
 
 To select all columns that are *not* a class of data, you need to add a `~`.
 ```{r}
-select_if(data_frame, ~!is.numeric(.)) # ! means not
+#select_if(data_frame, ~!is.numeric(.)) # ! means not
 ```
 
 
 
 Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
 ```{r}
-tolower(data_frame)
+#tolower(data_frame)
 #or
-select_all(data_frame, tolower)
+#select_all(data_frame, tolower)
 ```
 
 Other super helpful way to clean up column names is to load the 'janitor' package. This package could conflict with other ackages you might be using, however.
 ```{r}
 #library(janitor) 
-clean_names(data.frame) #super handy trick for cleaning up column names
+#clean_names(data.frame) #super handy trick for cleaning up column names
 ```
 
 When naming columns, blank spaces are often added. Here is a trick to remove these.  
 ```{r}
-select_all(data_frame, ~str_replace(., " ", "_"))
+#select_all(data_frame, ~str_replace(., " ", "_"))
 ```
 
 
@@ -293,17 +293,17 @@ select_all(data_frame, ~str_replace(., " ", "_"))
 ### Using `filter()` with multiple observations  
 Filtering multiple values within the same variable requires the `%in%` [operator](https://www.tutorialspoint.com/r/r_operators.htm).    
 ```{r}
-filter(data_frame, length %in% c(167, 175))
+#filter(data_frame, length %in% c(167, 175))
 ```
 
 Alternatively, you can use `between` if you are looking for a range of specific values.  
 ```{r}
-filter(fish, between(scalelength, 2.5, 2.55))
+#filter(fish, between(scalelength, 2.5, 2.55))
 ```
 
 You can also extract observations "near" a certain value but you need to specify a tolerance.  
 ```{r}
-filter(fish, near(radii_length_mm, 2, tol = 0.2))
+#filter(fish, near(radii_length_mm, 2, tol = 0.2))
 ```
 
 ### Using `filter()` on multiple conditions
@@ -317,7 +317,7 @@ Rules:
 
 
 ```{r}
-?count
+#?count
 ```
 
 
@@ -325,7 +325,7 @@ Rules:
 
 'levels()' is used to show all the possible values within a given variable
 ```{r}
-levels(fish$lakeid) 
+#levels(fish$lakeid) 
 ```
 
 
