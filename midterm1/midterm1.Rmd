@@ -38,6 +38,8 @@ wolves <- read.csv("data/NPS_wolfmortalitydata.csv", na = c("NULL")) %>% clean_n
 Problem 1. (1 point) Let's start with some data exploration. What are the variable (column) names?  
 ```{r}
 colnames(wolves)
+#or
+#names(wolves)
 ```
 
 
@@ -65,7 +67,11 @@ wolves$park <- as.factor(wolves$park)
 ```{r}
 levels(wolves$park)
 ```
-
+ or what prof did
+```{r}
+#wolves <- distinct(park)
+```
+ 
 
 Problem 4. (4 points) Which park has the largest number of wolf packs?
 ```{r}
@@ -76,6 +82,14 @@ wolves %>%
 ```
 It looks like Denali National Park and Preserve has the largest number of wolf packs.
 
+what prof did
+```{r}
+#wolves %>% 
+  #group_by(park) %>% 
+  #summarise(packs=n_distinct(pack)) %>% 
+  #?
+```
+
 
 Problem 5. (4 points) Which park has the highest total number of human-caused mortalities `mort_all`?
 ```{r}
@@ -85,6 +99,14 @@ wolves %>%
   arrange(desc(mort_all))
 ```
 Yukon-Charley Rivers National Preserve appears to have the highest total number of human-caused mortalities.
+
+what prof did
+```{r}
+wolves %>% 
+  group_by(park, mort_all) %>% 
+  summarise(deaths=sum(mort_all))
+```
+
 
 ```{r}
 #group_by(mort_all) %>% 
@@ -98,7 +120,7 @@ Problem 6. (2 points) Create a new object "ynp" that only includes the data from
 ```{r}
 ynp <- wolves %>% 
   filter(park=="YNP")
-ynp
+#ynp #dont print this- after checking if it's right, remove it
 ```
 
 
@@ -107,6 +129,16 @@ Problem 7. (3 points) Among the Yellowstone wolf packs, the [Druid Peak Pack](ht
 ynp %>% 
   filter(pack=="druid") %>% 
   summarise(mean_pack_size=mean(packsize_aug))
+```
+
+what prof did
+```{r}
+#druids <- ynp %>% 
+  #filter(pack=="druid")
+```
+
+```{r}
+#mean(druids$packsize_aug)
 ```
 
 
@@ -121,11 +153,24 @@ Problem 8. (4 points) Pack dynamics can be hard to predict- even for strong pack
 In 2010, I think the Druid Peak pack went extinct.
 
 
+what prof did
+```{r}
+wolves %>% 
+  filter(pack=="druids") %>% 
+  select(biolyr, packsize_aug) %>% 
+  arrange(biolyr) #not working for me?
+#or could use max()
+```
+
+
 Problem 9. (5 points) Among the YNP wolf packs, which one has had the highest overall persistence `persisty1` for the years represented in the data? Look this pack up online and tell me what is unique about its behavior- specifically, what prey animals does this pack specialize on? 
 ```{r}
 #ynp %>% 
   #group_by(pack) %>% 
   #summarise(highest_persistence=max(persisty1)) 
+#prof did instead
+  #summarise(persistence=sum(persisty1, an,rm=t)) %>% 
+  #arrange(desc(persistence)) #not working for me?
    
 ```
 
