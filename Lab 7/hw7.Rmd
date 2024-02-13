@@ -23,6 +23,7 @@ library(tidyverse)
 library(janitor)
 library(skimr)
 library(naniar)
+library(dplyr)
 ``` 
 
 ## Data
@@ -76,6 +77,7 @@ amniota %>%
 ```{r}
 amniota <- read_csv("data/amniota.csv", na= c("NA", " ", ".", "-999", "not measure")) %>% 
   clean_names() 
+#amniota_tidy <- 
 ```
 
 ```{r}
@@ -104,7 +106,7 @@ names(amniota)
 amniota %>% 
   group_by(class, egg_mass_g) %>%
   select(egg_mass_g, class) %>%
-  miss_var_summary(egg_mass_g=T)
+  miss_var_summary(order=T)
 #?
 ```
 
