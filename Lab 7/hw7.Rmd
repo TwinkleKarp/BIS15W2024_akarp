@@ -75,9 +75,8 @@ amniota %>%
 
 **5. Make any necessary replacements in the data such that all NA's appear as "NA".**   
 ```{r}
-amniota <- read_csv("data/amniota.csv", na= c("NA", " ", ".", "-999", "not measure")) %>% 
-  clean_names() 
-#amniota_tidy <- 
+amniota_tidy <- amniota %>% 
+  replace_with_na_all(condition = ~.x == -999)
 ```
 
 ```{r}
@@ -104,10 +103,10 @@ names(amniota)
 
 ```{r}
 amniota %>% 
-  group_by(class, egg_mass_g) %>%
   select(egg_mass_g, class) %>%
-  miss_var_summary(order=T)
-#?
+  group_by(class) %>% 
+  naniar::miss_var_summary(order=T)#make sure to specify it's from naniar
+
 ```
 
 **9. The `amphibio` data have variables that classify species as fossorial (burrowing), terrestrial, aquatic, or arboreal.Calculate the number of NA's in each of these variables. Do you think that the authors intend us to think that there are NA's in these columns or could they represent something else? Explain.**

@@ -48,19 +48,18 @@ expenditures
 1. Are these data tidy? Please use `pivot_longer()` to tidy the data.
 ```{r}
 expenditures %>% 
-  pivot_longer(-expenditure,
-               names_to = "year",
-               values_to = "bn_dollars")
+  pivot_longer(-expenditure, #not moving expenditure
+               names_to = "year", #new variable 'year'
+               values_to = "bn_dollars") #moving values into 'bn_dollars'
 ```
 
-2. Restrict the data to medical and health expenditures only. Sort in ascending order.
+2. Restrict the data to private education only. Sort in ascending order.
 ```{r}
 expenditures %>% 
   pivot_longer(-expenditure,
                names_to = "year",
-               values_to = "bn_dollars") %>% 
-  filter(expenditure=="Medical and Health") %>% 
-  arrange(-bn_dollars)
+               values_to = "bn_dollars",
+               #more)
 ```
 
 ## `separate()`
@@ -73,8 +72,9 @@ heartrate2
 We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
 ```{r}
 heartrate2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_")
+  separate(patient, into= c("patient", "sex"), sep = "_") # separating between the underscore, which is convenient
 ```
+still need to separate the drugs
 
 ## Practice
 1. Re-examine `heartrate2`. Use `separate()` for the sexes, `pivot_longer()` to tidy, and `arrange()` to organize by patient and drug. Store this as a new object `heartrate3`.  
@@ -94,7 +94,7 @@ heartrate3 %>%
 ```
 
 ## `pivot_wider()`
-The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.  
+The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations. What you call the values arent separated by the variable
 
 Rules:  
 + `pivot_wider`(names_from, values_from)  
@@ -105,6 +105,8 @@ Rules:
 tb_data <- read_csv("data/tb_data.csv")
 tb_data
 ```
+'key; has 2 names 'cases' and 'population', so use pivot_wider to help resolve this
+
 
 When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
 ```{r}
@@ -114,7 +116,7 @@ tb_data %>%
 ```
 
 ## Practice
-1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
+1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? No, because have more than 1 variable represented in each column. Use `pivot_wider()` to tidy the data.
 ```{r}
 gene_exp <- read_csv("data/gene_exp.csv")
 gene_exp
@@ -135,7 +137,7 @@ beachbugs <- read_csv("data/beachbugs_long.csv")
 beachbugs
 ```
 
-2. Use `pivot_wider` to transform the data into wide format.
+2. Use `pivot_wider` to transform the data into wide format. Need to put the different sites into their own columns
 ```{r}
 beachbugs_wide <- beachbugs %>% 
   pivot_wider(names_from = site,
@@ -143,7 +145,7 @@ beachbugs_wide <- beachbugs %>%
 beachbugs_wide
 ```
 
-3. Now, use `pivot_longer` to transform them back to long!
+3. Now, use `pivot_longer` to transform them back to long! This is so that the data can be analyzed
 ```{r}
 beachbugs_wide %>% 
   pivot_longer(-year,
