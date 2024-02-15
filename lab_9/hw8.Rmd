@@ -82,6 +82,7 @@ sydneybeaches_wide %>%
                names_to = "date",
                values_to = "enterococci_cfu_100ml")
 sydneybeaches_wide
+#?
 ```
 
 
@@ -89,25 +90,36 @@ sydneybeaches_wide
 ```{r}
 sydneybeaches_long_date <- sydneybeaches_long %>% 
   separate(date, into= c("day", "month", "year"), sep = "/")
+sydneybeaches_long_date
 ```
 
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 ```{r}
-sydneybeaches_long_date %>% 
+sydneybeaches_long_date_year <- sydneybeaches_long_date %>% 
   group_by(year) %>% 
   summarise(mean_enterococci=mean(enterococci_cfu_100ml, na.rm = T))
+sydneybeaches_long_date_year
 ```
 
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
-sydneybeaches_long_date %>% 
-  pivot_wider()
+sydneybeaches_long_date_year %>% 
+  pivot_wider(names_from = "year", #the observations under key will become new columns
+              values_from = "mean_enterococci") #the values under value will be moved to the new columns)
 ```
 
 
 9. What was the most polluted beach in 2013?
+```{r}
+sydneybeaches_long_date %>%  
+  filter(year=="2013") %>% 
+  group_by(site) %>% 
+  summarise(highest_pollution=max(enterococci_cfu_100ml)) %>% 
+  arrange(desc(highest_pollution))
+```
+Little Bay Beach was the most polluted beach in 2013.
 
 10. Please complete the class project survey at: [BIS 15L Group Project](https://forms.gle/H2j69Z3ZtbLH3efW6)
 
