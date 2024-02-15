@@ -26,7 +26,7 @@ library(janitor)
 ## Install `here`
 The package `here` is a nice option for keeping directories clear when loading files. I will demonstrate below and let you decide if it is something you want to use.  
 ```{r}
-#install.packages("here")
+install.packages("here")
 ```
 
 ## Data
@@ -87,18 +87,25 @@ sydneybeaches_wide
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 ```{r}
-sydneybeaches_long %>% 
-  (
-    exp1_rep1:exp3_rep3,
-    names_to= c("day", "month", "year"),
-    names_sep="/",
-    values_to="mRNA_expression"
+sydneybeaches_long_date <- sydneybeaches_long %>% 
+  separate(date, into= c("day", "month", "year"), sep = "/")
 ```
 
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
+```{r}
+sydneybeaches_long_date %>% 
+  group_by(year) %>% 
+  summarise(mean_enterococci=mean(enterococci_cfu_100ml, na.rm = T))
+```
+
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
+```{r}
+sydneybeaches_long_date %>% 
+  pivot_wider()
+```
+
 
 9. What was the most polluted beach in 2013?
 
