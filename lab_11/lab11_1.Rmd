@@ -51,12 +51,9 @@ life_history %>%
 `geom_bar`
 ```{r}
 life_history %>% 
-  group_by(order) %>% 
-  summarise(n_observations=n()) %>% 
   ggplot(aes(x=order))+
   geom_bar()+
   coord_flip()
-#?
 ```
 
 Remember that ggplot build plots in layers. These layers can significantly improve the appearance of the plot. What if we wanted a bar plot of the mean mass for each order? Would we use `geom_bar` or `geom_col`?  
