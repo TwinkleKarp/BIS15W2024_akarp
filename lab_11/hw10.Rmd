@@ -1,11 +1,11 @@
 ---
 title: "Homework 10"
-author: "Please Add Your Name Here"
+author: "Anastasia Karp"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
-    toc: no
+    keep_md: true
 ---
 
 ```{r setup, include=FALSE}
@@ -31,8 +31,25 @@ deserts <- read_csv("data/surveys_complete.csv") %>% clean_names()
 ```
 
 1. Use the function(s) of your choice to get an idea of its structure, including how NA's are treated. Are the data tidy?  
+```{r}
+glimpse(deserts)
+```
+
+```{r}
+str(deserts)
+```
+```{r}
+naniar::miss_var_summary(deserts)
+```
+
+The data appears to be tidy.
+
 
 2. How many genera and species are represented in the data? What are the total number of observations? Which species is most/ least frequently sampled in the study?
+```{r}
+
+```
+
 
 3. What is the proportion of taxa included in this study? Show a table and plot that reflects this count.
 
