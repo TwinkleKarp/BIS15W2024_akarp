@@ -169,7 +169,7 @@ Problem 9. (5 points) Among the YNP wolf packs, which one has had the highest ov
   #group_by(pack) %>% 
   #summarise(highest_persistence=max(persisty1)) 
 #prof did instead
-  #summarise(persistence=sum(persisty1, an,rm=t)) %>% 
+  #summarise(persistence=sum(persisty1, na.rm= T)) %>% 
   #arrange(desc(persistence)) #not working for me?
    
 ```

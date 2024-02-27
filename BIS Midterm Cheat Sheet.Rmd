@@ -381,6 +381,7 @@ The `janitor` package has many awesome functions. Here is its version of `table`
 #tabyl()
 ```
 
+### Ratios
 for ratios, can put '/' between two variables to get their ratio
 
 

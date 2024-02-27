@@ -1,0 +1,966 @@
+---
+title: "BIS Midterm 2 Cheat Sheet"
+output: 
+  html_document: 
+    keep_md: true
+date: "2024-02-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Lab 1.1
+
+We create vectors using the `c` command. The `c` stands for concatenate. to make a vector:
+```{r}
+#_ <- c()
+```
+
+to download the 'tidyverse' package
+```{r}
+#library("tidyverse")
+```
+
+
+## Lab 2.1 & 2.2
+
+### Types of Data
+There are five frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
+```{r}
+#my_numeric <- 42
+#my_integer <- 2L #adding an L automatically denotes an integer
+#my_character <- "universe"
+#my_logical <- FALSE
+#my_complex <- 2+4i
+```
+
+A numeric vector
+```{r}
+#my_vector <- c(10, 20, 30)
+```
+
+A character vector. Characters always have quotes and may be referred to as "strings".
+```{r}
+#days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+```
+
+A convenient trick for creating a vector is to generate a sequence of numbers.
+```{r}
+#my_vector_sequence <- c(1:100)
+```
+
+
+To find out what type of data you are working with, use the `class()` function
+```{r}
+#class()
+```
+
+You can use the `is()` and `as()` functions to clarify or specify a type of data.
+```{r}
+#is.integer() #is something an integer?
+```
+
+```{r}
+#as.integer() #create a new object specified as an integer
+```
+
+### Missing Data
+`is.na` or `anyNA` are useful functions when dealing with NAs in data
+```{r}
+#is.na()
+#anyNA()
+#?na.rm=T #na.rm=T removes the NA values in the vector
+```
+## Lab 3.1
+
+### Data Frames 
+includes example for make a "data.frame()' from scratch
+
+The `dim()` and `str()` commands provide the dimensions and/or structure of a data frame.
+```{r}
+#dim()
+#str()
+```
+
+to change the names of data frame variables
+```{r}
+#data.frame(new_name=old_name) #or can use 'janitor' package to automatically correct all names
+```
+
+can also use 'rename()'
+```{r}
+#rename()
+```
+
+
+in addition to [], can also select values in an entire column using the `$` sign. it can also be used for adding more data to the data frame
+```{r}
+#data_frame$col_name
+```
+
+## Writing Data to File
+There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
+```{r}
+#write.csv(data_frame, "data_frame.csv", row.names = FALSE)
+```
+
+## Lab 3.2
+
+To import any file, first make sure that you are in the correct working directory. If you are not in the correct directory, R will not "see" the file.
+```{r}
+#getwd()
+```
+
+### Load the data
+Here we open a .csv file. Since we are using the tidyverse, we open the file using `read_csv()`.
+```{r}
+#read_csv("file_name.csv") # '../' tells it to go farther back into my repository folder, if the data file is not located in the Lab folder 
+```
+
+```{r}
+#readr::read_csv()
+```
+
+
+Can change a class from a character to a factor. A factor is when you have repeated sets of a type; categories of characters
+```{r}
+#data_frame$col_name <- as.factor(data_frame$col_name)
+```
+
+### Summary functions
+We can summarize our data frame with the`summary()` function.  
+```{r}
+#summary()
+```
+
+`glimpse()` is another useful summary function.
+```{r}
+#glimpse()
+```
+
+`nrow()` gives the numbers of rows.
+```{r}
+#nrow()
+```
+
+`ncol` gives the number of columns.
+```{r}
+#ncol()
+```
+
+`names` gives the column names.
+```{r}
+#names()
+```
+
+`head()` prints the first n rows of the data frame.
+```{r}
+#head()
+```
+
+`tail()` prinst the last n rows of the data frame.
+```{r}
+#tail()
+```
+
+`table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable.  
+```{r}
+#table(data_frame$col_name)
+```
+
+We can also click on the data frame in the Environment tab or type View() to better see it.
+```{r}
+#View()
+```
+
+### Filter command
+
+Filter is a way of pulling out observations that meet specific criteria in a variable. 
+```{r}
+#filter()
+```
+
+(Lab 4.2)
+Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a variable
+
+`filter()` allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).
+
+
+## Lab 4.1
+
+### Select command
+Select allows you to pull out columns of interest from a dataframe. To do this, just add the names of the columns to the `select()` command. The order in which you add them, will determine the order in which they appear in the output.
+```{r}
+#select()
+```
+
+There are also other ways you can reconfigure, modify, etc.:
+
+To add a range of columns use `start_col:end_col`. This is super helpful when you have variables that are numbered
+
+The - operator is useful in select. It allows us to select everything except the specified variables.
+```{r}
+#select(data_frame, -"unwanted_col")
+```
+Options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression; 'regex'  
+4. one_of() = Select columns names that are from a group of names
+
+the following code is helpful when you know that a column contains a letter (such as "a") followed by a subsequent string (such as "er").  
+```{r}
+#select(data_frame, matches("a.+er")) 
+```
+
+You can also select columns based on the class of data, such as numeric data
+```{r}
+#select_if(data_frame, is.numeric)
+```
+
+To select all columns that are *not* a class of data, you need to add a `~`.
+```{r}
+#select_if(data_frame, ~!is.numeric(.)) # ! means not
+```
+
+
+
+Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
+```{r}
+#tolower(data_frame)
+#or
+#select_all(data_frame, tolower)
+```
+
+Other super helpful way to clean up column names is to load the 'janitor' package. This package could conflict with other ackages you might be using, however.
+```{r}
+#library(janitor) 
+#clean_names(data.frame) #super handy trick for cleaning up column names
+#janitor::clean_names()
+```
+
+When naming columns, blank spaces are often added. Here is a trick to remove these.  
+```{r}
+#select_all(data_frame, ~str_replace(., " ", "_"))
+```
+
+
+## lab 4.2
+
+### Using `filter()` with multiple observations  
+Filtering multiple values within the same variable requires the `%in%` [operator](https://www.tutorialspoint.com/r/r_operators.htm).    
+```{r}
+#filter(data_frame, length %in% c(167, 175))
+```
+
+Alternatively, you can use `between` if you are looking for a range of specific values.  
+```{r}
+#filter(fish, between(scalelength, 2.5, 2.55))
+```
+
+You can also extract observations "near" a certain value but you need to specify a tolerance.  
+```{r}
+#filter(fish, near(radii_length_mm, 2, tol = 0.2))
+```
+
+### Using `filter()` on multiple conditions
+You can also use `filter()` to extract data based on multiple conditions. 
+
+Rules:  
++ `filter(condition1, condition2)` will return rows where both conditions are met. same as '&' 
++ `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
++ `filter(condition1 | condition2)` will return rows where condition 1 or condition 2 is met.  
++ `filter(xor(condition1, condition2)` will return all rows where only one of the conditions is met, and not when both conditions are met. 
+
+
+```{r}
+#?count
+```
+
+
+## Lab 5.1
+
+'levels()' is used to show all the possible values within a given variable
+```{r}
+#levels(fish$lakeid) 
+```
+
+
+## Lab 5.2
+
+
+### `arrange()`
+The `arrange()` command is a bit like a sort command in excel. Note that the default is ascending order.  
+
+To sort in decreasing order (large to small), wrap the variable name in `desc()`.
+
+### `mutate()`  
+Mutate allows us to create a new column from existing columns in a data frame. 
+
+## `mutate_all()`
+This last function is super helpful when cleaning data. With "wild" data, there are often mixed entries (upper and lowercase), blank spaces, odd characters, etc. These all need to be dealt with before analysis.  
+
+Here is an example that changes all entries to lowercase (if present).  
+```{r}
+#data_frame %>%
+  #mutate_all(tolower)
+```
+
+Using the across function we can specify individual columns.
+```{r}
+#mammals %>% 
+  #mutate(across(c("order", "family"), tolower))
+```
+
+## `if_else()`
+We will briefly introduce `if_else()` here because it allows us to use `mutate()` but not have the entire column affected in the same way. In a sense, this can function like find and replace in a spreadsheet program. With `ifelse()`, you first specify a logical statement, afterwards what needs to happen if the statement returns `TRUE`, and lastly what needs to happen if it's  `FALSE`.
+
+`-999.00` is sometimes used as a placeholder for NA (but, is a really bad idea). We can use `if_else()` to replace `-999.00` with `NA`.  
+```{r}
+#mammals %>% 
+  #select(genus, species, newborn) %>%
+  #mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))%>% 
+  #arrange(newborn)
+```
+##Lab 6.2
+
+### `tabyl`
+The `janitor` package has many awesome functions. Here is its version of `table` which not only produces counts but also percentages. Very handy! Let's use it to explore the proportion of good guys and bad guys in the `superhero_info` data.  
+```{r}
+#tabyl()
+```
+
+### Ratios
+for ratios, can put '/' between two variables to get their ratio
+
+
+## Lab 7.1
+
+Alternative to 'summary()' is 'skim' (as a part of the skimr package)
+```{r}
+#skim()
+```
+
+'hist()'Histograms are also a quick way to check the output.
+```{r}
+#hist()
+```
+
+### `summarize()`
+`summarize()` will produce summary statistics for a given variable in a data frame. Is often used to find the mean, mix, max, sd,total, etc. of variables all at once. Ex:
+```{r}
+```{r}
+#msleep %>% 
+  #filter(bodywt>200) %>% 
+  #summarize(mean_sleep_lg=mean(sleep_total),
+            #min_sleep_lg=min(sleep_total),
+            #max_sleep_lg=max(sleep_total),
+            #sd_sleep_lg=sd(sleep_total),
+            #total=n())
+```
+
+To prevent r from being weird when summarizing with 'n()', can include ".groups = 'keep' " in the parenthesis
+```{r}
+#summarize(n_penguins=n(), .groups = 'keep')
+```
+
+
+`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. 
+
+There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of a column), first() (returns first value in a column), last() (returns last value in a column) and n_distinct() (number of distinct values in a column).
+
+### `group_by()`
+The `summarize()` function is most useful when used in conjunction with `group_by()`. ex: Although producing a summary of body weight for all of the mammals in the data set is helpful, what if we were interested in body weight by feeding ecology?
+```{r}
+#msleep %>%
+  #group_by(vore) %>% #we are grouping by feeding ecology, a categorical variable
+  #summarize(min_bodywt = min(bodywt),
+            #max_bodywt = max(bodywt),
+            #mean_bodywt = mean(bodywt),
+            #total=n())
+```
+
+```{r}
+?n=n()
+```
+
+### Counts
+
+`count()` is an easy way of determining how many observations you have within a column. It acts like a combination of `group_by()` and `n()`. ex:
+```{r}
+#penguins %>% 
+  #count(island, sort = T) #sort=T sorts the column in descending order
+```
+
+You can also use `count()` across multiple variables.
+
+For counts, I also like `tabyl()`
+
+## Lab 7.2
+
+## `across()`
+What about using `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to work across multiple variables.
+
+By using `across()` we can reduce the clutter and make things cleaner instead of using 'summarise()'. ex: 
+```{r}
+#penguins %>%
+  #summarize(across(c(species, island, sex), n_distinct))
+```
+
+This is very helpful for continuous variables.
+```{r}
+#penguins %>%
+  #summarize(across(contains("mm"), mean, na.rm=T))
+```
+
+can also summarize across all variables. ex:
+```{r}
+#penguins %>%
+  #summarise_all(mean, na.rm=T) #notice that there is no summary for categorical variables
+```
+
+
+## Lab 8.2
+
+### NA Summary
+
+Here is a new one for you using the `purrr` package. This will give you a quick summary of the number of NA's in each variable.
+```{r}
+#data_frame %>% 
+  #map_df(~ sum(is.na(.))) # 'map.df' stands for map the data frame
+#saying there aren't NA's because they're all listed as '-999's'
+```
+
+### `naniar`
+`naniar` is a package that is built to manage NA's. Many of the functions it performs can also be performed using tidyverse functions, but it does provide some interesting alternatives.  
+
+`miss_var_summary` provides a clean (percentage) summary of NA's across the data frame.
+```{r}
+#naniar::miss_var_summary(data_frame)
+# ': :' is asking r to use the naniar package
+#shows how much of the data is missing percent-wise
+```
+
+We can also use `miss_var_summary` with `group_by()`. This helps us better evaluate where NA's are in the data.
+```{r}
+#life_history %>%
+  #group_by(order) %>%
+  #select(order, wean_mass) %>% 
+  #miss_var_summary(order=T)
+```
+
+`naniar` also has a nice replace function which will allow you to precisely control which values you want replaced with NA's in each variable.
+```{r}
+#life_history %>% 
+  #replace_with_na(replace = list(newborn = "not measured", 
+   #                              weaning= -999, 
+    #                             wean_mass= -999, 
+     #                            afr= -999, 
+      #                           max_life= 0, 
+       #                          litter_size= -999, 
+        #                         gestation= -999, 
+         #                        mass= -999)) %>% 
+#miss_var_summary()
+# makes replacement of NAs specific to a variable
+```
+
+
+### Dealing with NA's in advance
+If you are sure that you know how NA's are treated in the data, then you can deal with them in advance using `na()` as part of the `readr` package.
+```{r}
+#life_history_advance <- 
+  #readr::read_csv(file = "data/mammal_lifehistories_v3.csv", 
+                  #na = c("NA", " ", ".", "-999")) #all NA, blank spaces, .,and -999 are treated as NA
+```
+
+
+## Lab 9.1
+
+### Tidy data
+Most "wild" data are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read [chapter 12 of the data science text](https://r4ds.had.co.nz/tidy-data.html) for a more thorough explanation.  
+
+`Tidy` data follows three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
+
+This is summarized in the image below. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
+![*Tidy Data.*](tidy-1.png)
+
+
+
+### `pivot_longer()`  
+Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
+
+Rules:  
++ `pivot_longer`(cols, names_to, values_to)
++ `cols` - Columns to pivot to longer format
++ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
++ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
+```{r}
+#heartrate %>% 
+  #pivot_longer(-patient, #patient is the only column that won't move
+               #names_to = "drug", #make a new column called "drug"
+               #values_to="heartrate") #values moved to a new column called "heartrate"
+```
+```
+
+### Example 2: some column names are data
+Some (but not all) of the column names are data. We also have NA's.
+
+Solution 1: specify a range of columns that you want to pivot. 
+```{r}
+#billboard2 <- 
+  #billboard %>% 
+  #pivot_longer(wk1:wk76, # a range of columns
+               #names_to = "week",
+               #values_to = "rank", 
+               #values_drop_na = TRUE) #this will drop the NA's
+```
+now 'week' is its own variable, and now we. can use groupby()
+
+Solution 2: OR, specify columns that you want to stay fixed.
+```{r}
+#billboard3 <- 
+ #billboard %>% 
+  #pivot_longer(-c(artist, track, date.entered), #specific columns to stay fixed; not move, which is why we incude '-c'
+#               names_to = "week",
+#               values_to = "rank",
+#               values_drop_na = TRUE)
+```
+
+Solution 3: identify columns by a prefix, remove the prefix and all NA's. Hepful when things are labeled sequentially in time
+```{r}
+#billboard %>% 
+#   pivot_longer(
+#   cols = starts_with("wk"), #columns that start with "wk"
+#   names_to = "week",
+#   names_prefix = "wk",
+#   values_to = "rank",
+#   values_drop_na = TRUE)
+```
+
+### Example 3: more than one variable in a column name
+In this case, there are two observations in each column name.
+
+`names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
+```{r}
+#qpcr_untidy %>% 
+ # pivot_longer(
+  #  exp1_rep1:exp3_rep3,
+   # names_to= c("experiment", "replicate"),
+    #names_sep="_",
+    #values_to="mRNA_expression")
+```
+
+
+## Lab 9.2
+
+'as_tibble()' this transforms the matrix into a data frame
+
+`separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+```{r}
+#heartrate2 %>% 
+ # separate(patient, into= c("patient", "sex"), sep = "_") # separating between the underscore, which is convenient
+```
+
+`unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.
+
+## `pivot_wider()`
+The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations. What you call the values arent separated by the variable
+
+Rules:  
++ `pivot_wider`(names_from, values_from)  
++ `names_from` - Values in the `names_from` column will become new column names  
++ `values_from` - Cell values will be taken from the `values_from` column  
+
+When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key", #the observations under key will become new columns
+              values_from = "value") #the values under value will be moved to the new columns
+```
+
+
+## Lab 10.1
+
+
+### Graphing Basics
+
+**plot= data + geom_ + aesthetics**.  
+
+We start by calling the ggplot function, identifying the data, and specifying the axes. We then add the `geom` type to describe how we want our data represented. Each `geom_` works with specific types of data and R is capable of building plots of single variables, multiple variables, and even maps. Lastly, we add aesthetics.'geom_' is the plot type
+
+#### NA's in graphing
+by default, ggplot pulls out NA's from the data and gives you a warning. If you don't want to get that, can just include 'na.rm=T' in the coding
+
+###geom_jitter()
+
+In big data sets with lots of overlapping values, over-plotting can be an issue- where all the points mush into one. One way is to make the points over, or `geom_jitter()`, which is similar to `geom_point()` but it helps with over plotting by adding some random noise to the data and separating some of the individual points.
+
+###'geom_smooth(method=lm, se=F)'
+
+Adds a regression (best of fit) line to a scatterplot
+
+'se=F' means we're not showing standard error- aesthetic choice
+
+
+### Bar Plot: `geom_bar()`
+The simplest type of bar plot counts the number of observations in a categorical variable. Notice that we do not specify a y-axis because it is count by default. 
+
+**good for counts/categorical data, but wont work for continuous data**
+
+geom_bar(position="dodge") this separates stacked bars when using the 'fill' function
+
+
+### Bar Plot: `geom_col()`
+Unlike `geom_bar()`, `geom_col()` allows us to specify an x-axis and a y-axis. Comparing a continuous with a categorica variable
+
+
+### 'coord_flip()'
+
+function to flip axes
+
+
+###`geom_bar()` with `stat="identity"`
+`stat="identity"` allows us to map a variable to the y-axis so that we aren't restricted to counts.
+
+###'top_n()'
+
+allows us to take the top/largest values of a variable. can also use '-' to take the bottom/smallest values instead
+```{r}
+#homerange %>% 
+  #filter(class== "mammalia") %>% 
+  #top_n(-10, log10.mass) %>% 
+  #ggplot(aes(x=common.name, y=log10.mass))+
+  #geom_col() #since have both x ad y
+```
+
+
+## Lab 10.2
+
+###'geom_boxplot()'
+
+Boxplots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. In the case below, we are plotting `log10.mass` by taxonomic class in the `homerange` data. `geom_boxplot()` is the geom type for a standard box plot. The center line in each box represents the median, not the mean.
+
+
+When the y-axis is in scientific notation, we can fix it by adjusting the options for the session.
+```{r}
+#options(scipen=999)#cancels scientific notation for the session
+```
+
+
+##Lab 11.1
+
+###'scale_y_log10()`
+
+This is not the best plot because can't really see the means of the smaller orders. The y-axis is not on a log scale. We can fix this by adding another layer to a geom; `scale_y_log10()`. can also do this for the x-axis 'scale_x_log10()`
+
+t=log10() is another way to log scale y
+
+
+### Labels: 'labs()'
+
+To add custom labels, we use the `labs` command.
+```{r}
+elephants %>% 
+  ggplot(aes(x=age, y=height)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=F)+
+  labs(title="Elephant Age vs. Height", #adds a title
+       x="Age (years)",
+       y="Height (cm)")
+```
+
+We can improve the plot further by adjusting the size and face of the text. We do this using `theme()`. The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
+```{r}
+elephants %>% 
+  ggplot(aes(x=age, y=height)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=F)+
+  labs(title="Elephant Age vs. Height", #adds a title
+       x="Age (years)",
+       y="Height (cm)")+
+  theme(plot.title = element_text(size=rel(1.5), hjust = 0.5)) #size=rel(1.5) means the title is 1.5x larger than the axes titles relatively
+#'hjust' is horizontal justification- 0 is to the left, 0.5 is in the middle, 1 is to the right
+```
+
+### 'fill' and 'size'
+
+There are lots of options for aesthetics. An aesthetic can be assigned to either numeric or categorical data. `fill` is a common grouping option; notice that an appropriate key is displayed when you use one of these options.
+```{r}
+elephants %>% 
+  ggplot(aes(x=sex, fill=sex))+ #fill is a grouping option; coloring in the bars by sex and get a key
+  geom_bar()
+```
+
+I can also use `fill` to associate the different taxa with a color coded key.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, group = taxon, fill=taxon)) + #both group and fill do the same things, but fill colors the boxplot
+  geom_boxplot(alpha=0.3) #adds transparency to the plot, so you can see the background
+```
+
+
+
+`size` adjusts the size of points relative to a continuous variable.The size of the point reflects the mass being plotted.
+```{r}
+life_history %>% 
+  ggplot(aes(x=gestation, y=log10(mass), size=mass))+ 
+  geom_point(na.rm=T)
+```
+
+
+## Lab 11.2
+
+###The Best Way to Upload Data
+
+Remove scientific notation- good to always do
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+Then use this format to upload the data
+```{r}
+homerange <- 
+  read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\")) 
+```
+
+
+###Storing a plot as an object and other aesthetic options
+
+one useful trick is to store the plot as a new object and then experiment with geom's and aesthetics. Notice that we are not specifying a geom.
+```{r}
+p <- homerange %>% 
+  ggplot(aes(x= log10.mass, y= log10.hra)) #just stored as an object, since havent made into a geom
+```
+
+Play with point size by adjusting the `size` argument.
+```{r}
+p + geom_point(size=1.25)
+```
+
+We can color the points by a categorical variable.
+```{r}
+p + geom_point(aes(color= thermoregulation), size=1.5) # p is 2 continuous variables, and now coloring by a categorical one
+#for scatterplots, color is the same as fill in barplots
+```
+
+We can also map shapes to another categorical variable.
+```{r}
+p + geom_point(aes(color= thermoregulation, shape=thermoregulation), size=1.5)
+```
+
+
+## Lab 11.2
+
+### Adjusting the Text of a graph
+
+theme(axis.text.x = element_text(angle=30, hjust=1)) adjusts the text
+
+
+### Scaling Bars to Percentages 
+
+We can also scale all bars to a raw percentage. 
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild))+
+  geom_bar(position = position_fill())+ #make adjustment to geom bar
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
+```
+
+## Using `group`
+In addition to `fill`, `group` is an aesthetic that accomplishes the same function but does not add color.
+
+I use `group` to make individual box plots for each taxon within class.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, group = taxon)) +
+  geom_boxplot()
+```
+
+
+I can also use `fill` to associate the different taxa with a color coded key.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, group = taxon, fill=taxon)) + #both group and fill do the same things, but fill colors the boxplot
+  geom_boxplot(alpha=0.3) #adds transparency to the plot, so you can see the background
+```
+
+
+## Lab 12.1
+
+### Line plots
+Line plots are great when you need to show changes over time.
+
+Let's start by making a clear x and y so we know what we are going to plot.
+```{r}
+deserts %>% 
+  filter(species_id=="DM"| species_id=="DS") %>% 
+  mutate(year=as.factor(year)) %>%  # important shortcut to do because if leave year as a numeric, r things we're doing math with it- continuous, but should be discrete(?)
+  group_by(year, species_id) %>% 
+  summarise(n=n(), .groups='keep') %>%  #prevents from getting error
+  pivot_wider(names_from = species_id, values_from = n) #helps format the table more clearly; more tidy
+  ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
+  geom_line()+
+  geom_point(shape=5)+ #you can experiment with shapes here
+  theme(axis.text.x = element_text(angle=60, hjust=1))+
+  labs(title="Number of Samples for Species DM & DS",
+       x="Year",
+       y="n")
+```
+
+
+### Histograms
+Histograms are frequently used by biologists; they show the distribution of continuous variables. As students, you have seen histograms of grade distributions. A histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment may be required.  
+
+What does the distribution of body mass look like in the `homerange` data?
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(bins=30)+ #we can adjust the number of bins/their size with the bins argument
+  labs(title = "Distribution of Body Mass")
+```
+
+Let's play with the colors of the histogram. This shows all 657 of R's built-in colors. Notice that `color` and `fill` do different things! These colors should be used with consistency especially when building reports of data; reuse them
+```{r}
+#grDevices::colors()
+```
+
+
+###'color' in histograms
+Let's rebuild the histogram, but this time we will specify the color and fill. Do a little experimentation on your own with the different colors.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(color = "black", fill = "lavenderblush", bins=10)+ #color is the outline and fill is the inside
+  labs(title = "Distribution of Body Mass")
+```
+
+
+
+## Density plots  
+Density plots are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_density(fill="plum", alpha  =0.4, color = "black")+ #alpha is the transparency
+  labs(title = "Distribution of Body Mass")
+```
+
+I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
+```{r message=FALSE}
+homerange %>% 
+  ggplot(aes(x=log10.mass)) +
+  geom_histogram(aes(y = after_stat(density)), fill = "deepskyblue4", alpha = 0.4, color = "black")+
+  geom_density(color = "red")+
+  labs(title = "Distribution of Body Mass")
+```
+
+
+## Create Categories with mutate and case_when()
+`case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. In this case, we are making a continuous variable into a categorical variable.  
+
+want to make categories with this for plotting
+```{r}
+homerange %>% 
+  mutate(mass_category=case_when(log10.mass<=1.75 ~ "small",
+                                 log10.mass>1.75 &
+                                   log10.mass<=2.75 ~ "medium",
+                                 log10.mass>2.75 ~ "large")) #this allows you to make your own categories with the data
+```
+
+
+
+## Lab 12.2
+
+### ggplot themes
+There are many options to change the theme of your plots within ggplot. Have a look [here]https://ggplot2.tidyverse.org/reference/ggtheme.html) for a list of the themes.  
+
+Have a look at the `linedraw` theme; I am adding it as another layer.
+```{r}
+p + theme_linedraw()+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+
+### Legends
+There are lots of options to manipulate legends. Have a look [here](http://www.sthda.com/english/wiki/ggplot2-legend-easy-steps-to-change-the-position-and-the-appearance-of-a-graph-legend-in-r-software).
+```{r}
+p+theme_linedraw()+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL, #removes the label from the x axis
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+
+### RColorBrewer
+The default colors used by ggplot are often uninspiring. They don't make plots pop out in presentations or publications, and you may want to use a customized palette to make things visually consistent.  
+
+Access the help for `RColorBrewer`.
+```{r}
+?RColorBrewer #includes palettes and their names
+```
+
+The thing to notice is that there are three different color palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
+```{r}
+display.brewer.pal(6,"RdPu") #sequential palette
+```
+
+The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
+
++`scale_colour_brewer()` is for points; geom_point()
++`scale_fill_brewer()` is for fills  
+
+Here I chose the `Paired` palette. Take a moment and experiment with other options.
+```{r}
+p+scale_fill_brewer(palette = "PuBuGn")+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+
+## Faceting
+[Faceting](https://ggplot2-book.org/facet.html) is one of the amazing features of ggplot. It allows us to make multi-panel plots for easy comparison.
+
+'facet_wrap()'
+There are other categorical variables that might be interesting to overlay. `facet_wrap()` makes a ribbon of panels by a specified categorical variable and allows you to control how you want them arranged.  
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_wrap(~trophic.guild)+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+`facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns. rows~columns. 
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_grid(trophic.guild~.)+ #'~.' after trophic.guild means across trophic.guild
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+`facet_grid()` will also allow the comparison of two categorical variables, just remember a~b where a is rows and b is columns.  
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_grid(trophic.guild~thermoregulation)+ 
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
