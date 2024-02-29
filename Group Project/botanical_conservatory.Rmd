@@ -1,0 +1,21 @@
+---
+title: "Botanical Conservatory Data"
+output: html_document
+date: "2024-02-29"
+---
+
+```{r}
+library("tidyverse")
+library("janitor")
+library("naniar")
+```
+
+```{r}
+getwd()
+```
+
+
+```{r}
+bot_conserv <- read_csv("data/Botanical_Conservatory_Data.csv") %>% clean_names
+```
+
