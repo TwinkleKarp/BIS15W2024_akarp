@@ -147,7 +147,7 @@ shinyApp(ui, server)
 
 So we have our inputs in a reactive environment, but we want to actually use those inputs to make a plot and display it on the ui. To make and display the plot, we need to save it to a named output object that the ui can use. To do this we use the reactive expression `renderPlot()` and access the plot on the ui side with `plotOutput()`. The inputs from `selectInput()` are character strings, so we need to use `aes_string()` in `ggplot`.
 
-want to make sure you build your plot at least once before making an app
+want to make sure you build your plot at least once before making an app to make sure it works right
 ```{r}
 penguins %>% 
   ggplot(aes(x=bill_length_mm, y=body_mass_g))+
@@ -194,6 +194,8 @@ homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 names(homerange)
 ```
 
+
+2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.
 ```{r}
 homerange %>% 
   ggplot(aes(x=locomotion, fill=trophic.guild))+
@@ -207,7 +209,7 @@ homerange %>%
 ```
 
 
-2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.
+
 ```{r}
 library(shiny)
 
