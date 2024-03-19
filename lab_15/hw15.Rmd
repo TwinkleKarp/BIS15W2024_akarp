@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-This homework is a bit less traditional this week. There are some errors in the code below. In addition add notes and titles to the code chunks that explains what the code chunck does. Use AI tools, notes from class, or any other resources to help fix the errors. Feel free to edit any plots to your preference. Don't forget to answer the two questions at the bottom. Upon completion, you should not have to '#' out any of the code chunks.
+This homework is a bit less traditional this week. There are some errors in the code below. In addition add notes and titles to the code chunks that explains what the code chunk does. Use AI tools, notes from class, or any other resources to help fix the errors. Feel free to edit any plots to your preference. Don't forget to answer the two questions at the bottom. Upon completion, you should not have to '#' out any of the code chunks.
 
 Push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.   
 
@@ -24,65 +24,65 @@ library(dplyr)
 ```
 
 
-1.
+1. Load the data
 ```{r}
-blood_count <- read_csv("data/blood_count.csv")
+blood_count <- read.csv("data/blood_count.csv")
 ```
 
-2. 
+2. Get a better look at the data
 ```{r}
-glmpse(blood_count)
+glimpse(blood_count)
 
 ```
 
-3. 
+3. Find the lowest, average, and highest red blood cell counts for males vs. females
 ```{r}
 blood_count %>% 
-  group_by(gender) %>% 
-  summarize(min=min(red_blood_cells)
-            mean=maen(red_blood_cells),
-            max=max(red_blood_cells)
+  group_by(Gender) %>% 
+  summarize(min=min(Red_Blood_Cells),
+            mean=mean(Red_Blood_Cells),
+            max=max(Red_Blood_Cells))
 ```
 
 
-4. 
+4. Find only the data for males in columns 3 through  9.
 ```{r}
 options(scipen = 999, digits = 2)
 
 blood_count %>% 
-  filter(Gender = "male") %>%
-  select[3:9] %>%
+  filter(Gender == "male") %>%
+  select(3:9) %>%
   colMeans(na.rm = TRUE)
 
 ```
 
-5. 
+5. Do the same for females
 ```{r}
-bloood_count %>% 
-  filter(Gender = "Female") />%
-  select[3:9] %>%
+blood_count %>% 
+  filter(Gender == "Female") %>% 
+  select(3:9) %>%
   colMeans(na.rm = T)
 ```
 
 
-6. 
+6. make a graph that looks at both females and males in all of these categories
 ```{r}
 
 blood_count %>%
-  pivot_wider(cols = [3:9], names_to = "Test", values_to = "Values") %>%
+  pivot_longer(cols = (3:9), names_to = "Test", values_to = "Values") %>%
   ggplot(aes(x = Gender, y = Values, fill = Gender)) +
   geom_boxplot() +
-  facet(~ Test, scales = "free") 
+  facet_wrap(~ Test, scales = "free")+ 
   labs(title = "Boxplot of Blood Count Tests",
        x = "Test",
        y = "Values")
 
 ```
 
-7. 
+7. Group the data in age groups by decade.
 ```{r}
 grouped_bc <- blood_count %>%
-  change(Age_Group = case_when(
+  mutate(Age_Group = case_when(
     Age >= 20 & Age <= 29 ~ "20s",
     Age >= 30 & Age <= 39 ~ "30s",
     Age >= 40 & Age <= 49 ~ "40s",
@@ -93,19 +93,23 @@ head(grouped_bc)
 
 ```
 
-8. 
+8. make a graph of blood count tests by age group, using grouped_bc 
 ```{r}
-blood_count %>%
+grouped_bc %>%
   pivot_longer(cols = 3:9, names_to = "Test", values_to = "Values") %>%
-  ggplot(ase(x = Age_Group, y = values, fill = Age_Group)) +
+  ggplot(aes(x = Age_Group, y = Values, fill = Test)) +  # Corrected fill aesthetic
   geom_boxplot() +
-  facet_wrap( Test, scales = "free") +  # Facet by the "Test" variable
+  facet_wrap(~ Test, scales = "free") +  # Facet by the "Test" variable
   labs(title = "Boxplot of Blood Count Tests by Age Group",
        x = "Age Group",
        y = "Values")
 
 ```
 9. What are two drawbacks and two benefits of AI?
+
+Two drawbacks are that AI isn't always correct and as a result it can be a bad habit to just rely on AI to code. 
+
+Two benefits include that it can help you troubleshoot issues and make coding a lot easier/less intensive.
 
 10. Do you think you will use AI for coding in the future? Why or why not?
 
